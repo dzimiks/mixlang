@@ -1,0 +1,31 @@
+import:
+
+- stdio
+
+start:
+    
+    int n
+    read:n:
+    
+    ? {zbirCifara:n: > 10}
+         [ 
+           writeln:"Zbir cifara broja ":n:" veci od 10": 
+         ]
+          ,
+         [  
+            writeln:"Zbir cifara broja ":n:" nije veci od 10":
+         ]
+         
+functions:
+
+int -int- zbirCifara:n:
+[  
+    int zbir = 0
+    
+    for (i, n, {i > 0}, i/10)
+    [
+       zbir = zbir + i % 10
+    ]
+    
+    ret:zbir:
+]

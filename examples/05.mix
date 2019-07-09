@@ -1,0 +1,16 @@
+import:
+
+- stdio
+- randomLib
+
+start:
+    
+    int n
+    read:n:
+    
+    for (i, 1, {i<=n}, i)
+    [
+       writeln:rnd:1:100::
+       i++
+    ]  
+      

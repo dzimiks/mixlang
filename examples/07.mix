@@ -1,0 +1,33 @@
+import:
+
+- stdio 
+- string
+
+start:
+    
+    str text, finText
+     
+    readln:text:
+    
+    int len = size:text:
+    
+    for (i, 0, {i < len - 1}, i + 1)
+    [
+        ? { dig:text_i_: and let:text_i+1_:}
+           [ finText = finText + text_i_ + '#' ] 
+           , 
+           [ 
+            ? {let:text_i_: and dig:text_i+1_:} 
+            [ finText = finText + text_i_ + '*' ]
+            ,
+            [ finText = finText + text_i ]               
+           ]
+            
+    ]
+    ? {len !! 0}
+      [
+         finText = finText + text_len-1_
+      ]
+       
+    writeln:finText:     
+   

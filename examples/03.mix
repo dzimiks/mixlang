@@ -1,0 +1,27 @@
+import:
+ 
+- stdio
+
+start:
+    
+    int a, b, c, d
+    
+    read:a:b:c:d:
+    
+    int y = max:max:a:b::max:c:d::
+   
+    writeln:y:
+
+functions:
+
+int -int-int- max:a:b:
+[
+    ? {a > b}
+    [
+      ret:a: 
+    ]
+    ,
+    [
+     ret:b:
+    ]
+]

@@ -1,0 +1,61 @@
+import:
+
+- stdio
+- string
+
+global_var:
+
+str text, finText
+
+start:
+    
+    int n
+    
+    readln:n:    
+    readln:text:
+    
+    int len = size:text:
+    
+    for (i, 0, {i < len}, i)
+    [
+        int r = findNextSpecial:i:
+        
+        ? { r - i > n}
+        [
+          for (j, i, {j < r}, inc:j:)
+          [ 
+            finText = finText + text_j_
+            ? {text_j_ >= 'a'}
+               [ finText_j_ = finText_j_ - 32 ]
+          ]  
+        ],
+        [ 
+            for (j, i, {j < r}, j + 1)
+              [ finText = finText + text_j_ ]
+        ]
+        ? {r !! len}
+             [ finText = finText + text_r_ ]
+          i = r + 1
+    ]
+    
+    writeln:finText:
+
+functions:
+
+int -int- findNextSpecial:x:
+[ 
+    int len = size:text:
+    
+    for (i, x, {i < len}, i + 1)
+    [
+     ? { {text_i_ == ' '} or intpSign:text_i_:}
+       [ ret:i: ]     
+    ]   
+    
+    ret:len:
+]
+
+int -int- inc:x:
+[  
+    ret:++x:
+]

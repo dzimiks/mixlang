@@ -1,0 +1,16 @@
+import:
+
+- stdio
+
+global_var:
+
+int h
+
+start:
+    
+    read:h:
+    
+    int manW = h - 100
+    int womW = h - 120
+    
+    write:manW:" ":womW:

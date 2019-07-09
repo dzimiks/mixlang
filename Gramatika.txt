@@ -1,0 +1,98 @@
+program : blocks
+
+blocks                      : (import_block | global_var_block | main_block | function_block)  
+
+import_block                : IMPORT COLON NEWLINE library_list
+
+library_list                : (DASH ID NEWLINE)*
+
+global_var_block            : GLOB_VAR COLON NEWLINE (variable_list NEWLINE)*
+
+variable_list               : type_spec ID var_initialization (COMMA ID var_initialization)* 
+
+var_initialization          : (ASSIGN expr)?
+
+main_block                  : START COLON NEWLINE statement_list
+
+statement_list              : variable_list NEWLINE
+							| statement NEWLINE
+							| statement NEWLINE statement_list
+
+statement                   : assignment_statement
+							| function_call
+							| if_statement
+                            | for_statement
+							| return_statement
+							| empty
+
+assignment_statement        : variable ASSIGN expr
+
+if_statement                : QM condition_expr LUGL statement_list RUGL (COMMA LUGL statement_list RUGL)? 
+
+condition_expr              : LBRACKET expr RBRACKET
+
+for_statement               : FOR LPARAN variable COMMA expr COMMA condition_expr COMMA expr RPARAN LUGL statement_list RUGL
+
+function_block              : FUNCTIONS COLON NEWLINE function_list
+
+function_list               : (function NEWLINE)*
+
+function                    : type_spec (DASH type_spec)* DASH ID COLON (variable COLON)* LUGL statement_list return_statement RUGL
+
+return_statement            : RETURN expr
+
+term                        : factor ((MUL | DIV) factor)*
+
+type_spec                   : REAL | BOOL | INT | STRING | LIST
+
+variable                    : ID
+
+bool_op                     : AND | OR
+
+expr                        : (NOT)? expr1 (bool_op (NOT)? expr1)*
+
+expr1                       : (value_expr (COMP_SIGN value_expr)*)
+
+value_expr                  : term ((PLUS | MINUS) term)*
+
+term                        : factor ((MUL | DIV) factor)*
+
+factor                      : PLUS factor
+							| MINUS factor
+                            | variable
+							| INT_NUMBER
+                            | PLUS PLUS variable
+                            | MINUS MINUS variable
+							| LPARAN expr RPARAN
+							| variable
+							| function_call
+           
+
+function_call               : ID COLON ((expr | STRING) COLON)*
+
+ASSIGN                      : '='
+MINUS                       : '-'
+PLUS                        : '+'
+MUL                         : '*'
+DIV                         : '/'
+COLON                       : ':'
+DASH                        : '-'
+IMPORT                      : 'import'
+GLOB_VAR                    : 'global_var'
+RETURN                      : 'ret'
+FUNCTIONS                   : 'functions'
+START                       : 'start'
+NEWLINE                     : '\n'
+COMMA                       : ','
+LBRACKET                    : '{'
+RBRACKET                    : '}'
+LPARAN                      : '('
+RPARAN                      : ')'
+QM                          : '?'
+FOR                         : 'for'
+ID                          : LETTER (LETTER | DIGIT)*
+LETTER                      : ('a' - 'z') | ('A' - 'Z')
+DIGIT                       : ('0' - '9')
+LUGL                        : '['
+RUGL                        : ']'
+COMP_SIGN                   : ('>' | '<' | '>=' | '<=' | '==' | '!!')
